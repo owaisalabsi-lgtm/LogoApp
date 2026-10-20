@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الحمدي تكنولوجي للحلول التقنية</title>
+    <!-- Bootstrap 5 RTL CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <!-- Google Fonts (Cairo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg sticky-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-white" href="{{ url_for('home') }}">
+    <img src="{{ url_for('static', filename='images/alhamdi.jpeg') }}" alt="شعار الحمدي تكنولوجي" height="38" class="rounded-circle">
+    <span>الحمدي تكنولوجي</span>
+</a>
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('services') }}">الخدمات والحلول</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">من نحن</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">طلب خدمة</a></li>
+                </ul>
+                <div class="d-flex me-lg-3">
+                    {% if session.get('logged_in') %}
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light btn-sm me-2">لوحة التحكم</a>
+                        <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm">خروج</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-accent btn-sm">تسجيل الدخول</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Dynamic Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="custom-footer text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-1">جميع الحقوق محفوظة &copy; الحمدي تكنولوجي للحلول التقنية</p>
+            <small class="text-white-50">حلول الشبكات - أنظمة المراقبة - الدعم الفني والأنظمة الذكية</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

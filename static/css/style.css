@@ -1,0 +1,38 @@
+:root {
+    --primary-color: #1E3A8A;
+    --accent-color: #0EA5E9;
+    --bg-color: #F8FAFC;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--bg-color);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main { flex: 1; }
+
+.custom-navbar { background-color: var(--primary-color); }
+.custom-navbar .nav-link { color: #ffffff !important; font-weight: 500; transition: color 0.3s ease; }
+.custom-navbar .nav-link:hover { color: var(--accent-color) !important; }
+
+.btn-accent { background-color: var(--accent-color); color: #fff; border: none; transition: all 0.3s ease; }
+.btn-accent:hover { background-color: #0284C7; color: #fff; transform: translateY(-2px); }
+
+.btn-primary-custom { background-color: var(--primary-color); color: #fff; }
+.btn-primary-custom:hover { background-color: #1e293b; color: #fff; }
+
+.service-card { border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.service-card:hover { transform: translateY(-6px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+
+.hero-section { background: linear-gradient(135deg, var(--primary-color), #0f172a); color: white; animation: fadeIn 1.2s ease-in-out; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.custom-footer { background-color: var(--primary-color); }

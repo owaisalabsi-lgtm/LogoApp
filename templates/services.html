@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary">الخدمات والحلول التقنية المتكاملة</h2>
+        <p class="text-muted">استعرض كافة الخدمات المتاحة من مكتب الحمدي تكنولوجي</p>
+    </div>
+
+    <div class="row g-4">
+        {% for service in services %}
+        <div class="col-md-4">
+            <div class="card h-100 service-card">
+                <div class="card-body p-4 text-center">
+                    <span class="badge bg-accent mb-2">{{ service.category }}</span>
+                    <h5 class="card-title fw-bold text-dark my-2">{{ service.title }}</h5>
+                    <p class="card-text text-muted">{{ service.description }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center pb-4">
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary-custom w-100">اطلب هذه الخدمة</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

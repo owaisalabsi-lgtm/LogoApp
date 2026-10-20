@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-primary">طلبات العملاء الواردة</h3>
+        <span class="badge bg-accent fs-6">إجمالي الطلبات: {{ requests|length }}</span>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>اسم العميل</th>
+                            <th>رقم الهاتف</th>
+                            <th>نوع الخدمة</th>
+                            <th>التفاصيل</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for req in requests %}
+                        <tr>
+                            <td>{{ req.id }}</td>
+                            <td class="fw-bold">{{ req.client_name }}</td>
+                            <td>{{ req.phone }}</td>
+                            <td><span class="badge bg-info text-dark">{{ req.service_type }}</span></td>
+                            <td>{{ req.details or 'لا توجد تفاصيل إضافية' }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">لا توجد طلبات مسجلة حتى الآن.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

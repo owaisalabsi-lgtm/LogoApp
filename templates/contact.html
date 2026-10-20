@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-3 p-4">
+                <h3 class="fw-bold text-center mb-4 text-primary">طلب خدمة / استفسار تقني</h3>
+                
+                <form action="{{ url_for('contact') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-bold">الاسم الكامل *</label>
+                        <input type="text" class="form-control" id="name" name="name" required placeholder="أدخل اسمك الكريم">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phone" class="form-label fw-bold">رقم الهاتف / الواتساب *</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required placeholder="مثال: 770000000">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="service_type" class="form-label fw-bold">نوع الخدمة المطلوبة *</label>
+                        <select class="form-select" id="service_type" name="service_type" required>
+                            <option value="" selected disabled>اختر الخدمة...</option>
+                            <option value="أنظمة مراقبة وكاميرات">أنظمة مراقبة وكاميرات</option>
+                            <option value="شبكات وربط لاسلكي">شبكات وربط لاسلكي P2P</option>
+                            <option value="صيانة سيرفرات وأجهزة">صيانة سيرفرات وأجهزة</option>
+                            <option value="استشارة تقنية أخرى">استشارة تقنية أخرى</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="details" class="form-label fw-bold">تفاصيل الطلب أو الملاحظات</label>
+                        <textarea class="form-control" id="details" name="details" rows="4" placeholder="اكتب التفاصيل هنا..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-accent w-100 py-2 fw-bold">إرسال الطلب</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
