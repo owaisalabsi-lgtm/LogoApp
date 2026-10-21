@@ -1,8 +1,25 @@
 import sqlite3
+import requests
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
 app.secret_key = 'alhamdi_tech_secret_key'  # مفتاح تشفير الجلسات
+
+# --- إعدادات بوت تليجرام للإشعارات الفورية ---
+TELEGRAM_BOT_TOKEN = "8839594215:AAFHRajv4buhRkJyyBooH8KAfF1CGzEAFE"
+TELEGRAM_CHAT_ID = "8115313441"
+
+def send_telegram_alert(message):
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    payload = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": message,
+        "parse_mode": "Markdown"
+    }
+    try:
+        requests.post(url, data=payload, timeout=5)
+    except Exception as e:
+        print(f"Error sending Telegram alert: {e}")
 
 # دالة الاتصال بقاعدة البيانات
 def get_db_connection():
@@ -108,6 +125,17 @@ def contact():
             )
             conn.commit()
             conn.close()
+
+            # --- إرسال إشعار فوري إلى تليجرام ---
+            alert_text = (
+                f"🚨 *طلب خدمة جديد عبر الموقع!*\n\n"
+                f"👤 *الاسم:* {client_name}\n"
+                f"📞 *الهاتف:* {phone}\n"
+                f"🛠️ *الخدمة:* {service_type}\n"
+                f"📝 *التفاصيل:* {details if details else 'لا توجد تفاصيل إضافية'}"
+            )
+            send_telegram_alert(alert_text)
+
             flash("تم إرسال طلبك بنجاح! سنقوم بالتواصل معك قريباً.", "success")
             return redirect(url_for('contact'))
         else:
